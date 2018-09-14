@@ -19,3 +19,5 @@ To create line plots for an instrument, use the following syntax:
 For example:
 <code>python -W ignore newloadData.py ADCPTE101.cfg month /var/www/html/images</code>
 would create one-month plots for ADCPTE101 and store them in the images file on the local webserver. Note, that the script will automatically deposit the images into a subdirectory matching the time-window (i.e. /var/www/html/images/month/).
+
+Likewise, <code>python -W ignore loadData_3D.py ADCPTE101.3dcfg week</code> would create one-week plots for ADCPTE101 and store them in <code>./week/</code>. Yes that's right folks, the third argument is optional. If ommitted, the code defaults to <code>$PWD</code>.
