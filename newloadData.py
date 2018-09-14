@@ -222,9 +222,10 @@ for cBlock in cfg:
             avgvals.append(np.nanmean(x))
 
             # Create label string
-            labStr = 'min=%2.2f, max=%2.2f, mean=%2.2f' % (minvals[-1],
-                                                           maxvals[-1],
-                                                           avgvals[-1])
+            labStr = '%s: min=%2.2f, max=%2.2f, mean=%2.2f' % (pname,
+                                                               minvals[-1],
+                                                               maxvals[-1],
+                                                               avgvals[-1])
 
             # Plot variable vs time
             plt.plot(mdates.date2num(t), x, linewidth=3, label=labStr)
