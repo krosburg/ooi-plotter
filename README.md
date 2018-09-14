@@ -15,7 +15,7 @@ The prior controls plotting of x vs. y plots, or line plots, while the latter co
 Here are a few requirements and tips to running this code.
 
 ### Credentials File
-Both the 2D and 3D versions of this program require a credentials file. This file includes a username, access token, and the base URL for m2m requests. This file is seprate (and excluded via .gitignore) in order to try to maintain some semblance of security -- don't go boadcasting your OOI token on the githubs!
+Both the 2D and 3D versions of this program require a credentials file. This file includes a username, access token, and the base URL for m2m requests. This file is seprate (and excluded via .gitignore) in order to try to maintain some semblance of security -- don't go boadcasting your OOI token on the githubs! If you run the code without a credentials file, it will fail.
 
 Name the file <code>ooicreds.py</code> and save it to your main project directory. The syntax is as follows:
 
