@@ -1,0 +1,25 @@
+[ADCPSK101_Eastward_Seawater_Velocity]
+streamName=RS01SUM2/MJ01B/12-ADCPSK101/streamed/adcp_velocity_beam
+xParam=time
+yParam=bin_depths
+zParam=eastward_seawater_velocity
+dbKeyNames=ADCPSK101_eastward_seawater_velocity
+pdNumsString=PD7,PD3819,PD7983
+yaxisInterval=1.0
+precision=-1
+yunits=m
+zunits=m s^{-1}
+vectorIndex=1
+
+[ADCPSK101_Northward_Seawater_Velocity]
+streamName=RS01SUM2/MJ01B/12-ADCPSK101/streamed/adcp_velocity_beam
+xParam=time
+yParam=bin_depths
+zParam=northward_seawater_velocity
+dbKeyNames=ADCPSK101_northward_seawater_velocity
+pdNumsString=PD7,PD3820,PD7983
+yaxisInterval=1.0
+precision=-1
+yunits=m
+zunits=m s^{-1}
+vectorIndex=1
