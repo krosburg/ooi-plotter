@@ -184,6 +184,9 @@ for cBlock in cfg:
     # Convert data to Pandas Frame
     data = pd.DataFrame.from_records(raw_data)
 
+    # Extract parameter names
+    pnames = params['paramNames'][0:-1]
+
     #  If device is oprationally off, print a green message
     if params['opOff'] == 1:
         print(params['title']+' operationally off. Skipping.')
@@ -204,8 +207,6 @@ for cBlock in cfg:
 
     # If device is functioning off, plot the datas as usual
     else:
-        # Extract parameter names
-        pnames = params['paramNames'][0:-1]
 
         # Get the time variable
         t = epoch_to_dt(np.array(data['time'], dtype=np.float))
