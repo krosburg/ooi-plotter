@@ -218,7 +218,7 @@ for cBlock in cfg:
         minvals, maxvals, avgvals = [], [], []
         for pname in pnames:
             # Get Data from data frame
-            x = np.array(data[pname], dtype=np.float)*params['scalar']
+            x = np.array(data[pname], dtype=np.float)*np.float(params['scalar'])
 
             # Store min/max/mean values
             minvals.append(np.nanmin(x))

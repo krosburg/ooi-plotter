@@ -137,7 +137,7 @@ def get_args():
 
 #### PARSE_DATA() ############################################################
 def parse_data(raw_data, params):
-    # Given a raw json data from m2m and a list of params from the cfg 
+    # Given a raw json data from m2m and a list of params from the cfg
     # file, parses the data as necesary for plotting.
     x, y, z = [], [] ,[]
     for data in raw_data:
@@ -148,7 +148,7 @@ def parse_data(raw_data, params):
     # Convert x, y, z to numpy arrays
     x = np.array(x, dtype=np.float)
     y = np.array(y, dtype=np.float)
-    z = np.array(z, dtype=np.float).transpose() * params['scalar']
+    z = np.array(z, dtype=np.float).transpose() * np.float(params['scalar'])
 
     # Convert Time if Needed
     if params['xParam'] == 'time':
