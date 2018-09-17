@@ -188,7 +188,9 @@ for cBlock in cfg:
     pnames = params['paramNames'][0:-1]
 
     #  If device is oprationally off, print a green message
+    failFlag = False
     if params['opOff'] == 1:
+        failFlag = True
         print(params['title']+' operationally off. Skipping.')
         plt.plot()
         plt.text(0, 0, 'OPERATIONALLY OFFLINE',
@@ -198,6 +200,7 @@ for cBlock in cfg:
 
     # If no data returned, print a red error message
     elif not raw_data:
+        failFlag = True
         print('No data for '+params['title']+'. Skipping.')
         plt.plot()
         plt.text(0, 0, 'ERROR',
@@ -255,7 +258,10 @@ for cBlock in cfg:
 
     # Save Figure
     fig_file = dest_dir + time_window + '/' + params['title']
-    plt.savefig(fig_file+'.png', bbox_extra_artists=(lgd,), bbox_inches='tight')
+    if not failFlag:
+        plt.savefig(fig_file+'.png', bbox_extra_artists=(lgd,), bbox_inches='tight')
+    else:
+        plt.savefig(fig_file+'.png', bbox_inches='tight')
     Image.open(fig_file+'.png').convert('RGB').save(fig_file + '.jpg', 'JPEG')
     remove(fig_file + '.png')
     print(fig_file + '.png updated')
