@@ -1,9 +1,9 @@
 
-#FILES=/home/sbaker/scripts/config/*.cfg
-FILES=../config/*.cfg
+BASE=~/Documents/Work/Code/plot_v2
+FILES=$BASE/config/*.cfg
 for f in $FILES
 do
-  date && python ../loadData.py $f day ../images
+  date && python -W ignore $BASE/loadData.py $f day $BASE/images
   sleep 1
 done
 
