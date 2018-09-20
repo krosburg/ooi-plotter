@@ -270,7 +270,12 @@ for cBlock in cfg:
     plt.title(params['title'], fontsize=label_size)
 
     # Save Figure
-    fig_file = dest_dir + time_window + '/' + params['title']
+    parts = params['streamName'].split('/')
+    region = parts[0]
+    node = parts[1]
+    inst = parts[2][3:]
+    rID = region + '-' + node + '-'
+    fig_file = dest_dir + time_window + '/' + rID + params['title']
     plt.savefig(fig_file + '.png', bbox_inches='tight')
     Image.open(fig_file + '.png').convert('RGB').save(fig_file + '.jpg', 'JPEG')
     remove(fig_file + '.png')
