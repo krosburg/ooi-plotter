@@ -20,10 +20,8 @@ Both the 2D and 3D versions of this program require a credentials file. This fil
 Name the file <code>ooicreds.py</code> and save it to your main project directory. The syntax is as follows:
 
 <code>
-USERNAME=<OOI-username>
-
-TOKEN=<OOI-token>
-
+USERNAME="<OOI-username>"<br>
+TOKEN="<OOI-token>"<br>
 BASE_URL = 'https://ooinet.oceanobservatories.org/api/m2m/12576/sensor/inv/'
 </code>
 

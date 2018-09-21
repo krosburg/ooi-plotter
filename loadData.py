@@ -2,14 +2,14 @@ from PIL import Image
 from os import remove
 from datetime import datetime, timedelta
 from configparser import ConfigParser
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import pandas as pd
 import requests
 import sys
-import matplotlib
-matplotlib.use('Agg')
 
 
 ##### EPOCH_TO_DT() ###########################################################
@@ -257,7 +257,13 @@ for cBlock in cfg:
                      fontsize=20, frameon=False)
 
     # Save Figure
-    fig_file = dest_dir + time_window + '/' + params['title']
+    parts = params['streamName'].split('/')
+    region = parts[0]
+    node = parts[1]
+    inst = parts[2][3:]
+    rID = region + '-' + node + '-'
+    fig_file = dest_dir + time_window + '/' + rID + params['title']
+    #fig_file = dest_dir + time_window + '/' + params['title']
     if not failFlag:
         plt.savefig(fig_file+'.png', bbox_extra_artists=(lgd,), bbox_inches='tight')
     else:
