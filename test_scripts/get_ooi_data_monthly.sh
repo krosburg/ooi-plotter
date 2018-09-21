@@ -1,9 +1,8 @@
 
-BASE=~/Documents/Work/Code/plot_v2
-FILES=$BASE/config/*.cfg
+FILES=/home/krosburg/ooi-plotter/config/*.cfg
 for f in $FILES
 do
-  date && python -W ignore $BASE/loadData.py $f month $BASE/images
+  date && python -W ignore $HOME/ooi-plotter/loadData.py $f month /var/www/html/kcrtest/images
   sleep 1
 done
 
