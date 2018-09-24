@@ -155,17 +155,19 @@ def parse_data(raw_data, params):
         x = epoch_to_dt(x)
         x = mdates.date2num(x)
 
-    # Some Manipulations for OPTAA sensors
-    if np.nanmin(y) == np.nanmax(y):
-        if params['title'][0:5] == 'OPTAA':
-            y = np.linspace(400.0, 730.0, len(y[1]))
-        
-    # Decrease dimensionality of y if needed
+    # Remove Fill Values from Y
+    y[y <= -9999998.0] = float('NaN')
+
+    # If 2D y, select 1st 1D non-NaN 1D array
     try:
         y.shape[1]
-        y = y[-1]
+        cnt = 0
+        while np.isnan(y[cnt][1]):
+            cnt = cnt + 1
+        y = y[cnt]
     except Exception:
-        None
+        #None
+        print("probrem!")
 
     # Remove Z Fill Values
     z[z > 9999998.0] = float('NaN')
