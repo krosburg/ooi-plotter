@@ -163,9 +163,14 @@ def parse_data(raw_data, params):
     # Decrease dimensionality of y if needed
     try:
         y.shape[1]
-        y = y[1]
+        y = y[-1]
     except Exception:
         None
+
+    # Remove Z Fill Values
+    z[z > 9999998.0] = float('NaN')
+    z[z < -9999998.0] = float('NaN')
+    z[z == -9999999.0] = float('NaN')
 
     return x, y, z
 ###############################################################################
@@ -242,6 +247,7 @@ for cBlock in cfg:
         # Contour and add colorbar
         minval = np.nanmin(z)
         maxval = np.nanmax(z)
+        avgval = np.nanmean(z)
         CS = plt.pcolor(x, y, z, cmap=plt.get_cmap('RdBu_r'),
                         vmin=minval, vmax=maxval)
         CS.cmap.set_under('white')
@@ -267,6 +273,7 @@ for cBlock in cfg:
 
     # Add Title and Y label
     plt.ylabel(params['yParam'].replace('_', ' ') + ' ($' + params['yunits'] + '$)', fontsize=label_size)
+    plt.xlabel("Min=%2.2f, Max=%2.2f, Avg=%2.2f" % (minval, maxval, avgval))
     plt.title(params['title'], fontsize=label_size)
 
     # Save Figure
