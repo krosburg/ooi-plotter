@@ -219,6 +219,7 @@ for cBlock in cfg:
         for pname in pnames:
             # Get Data from data frame
             x = np.array(data[pname], dtype=np.float)*np.float(params['scalar'])
+            x[x <= -9.99e6] = float('NaN')
 
             # Store min/max/mean values
             minvals.append(np.nanmin(x))
