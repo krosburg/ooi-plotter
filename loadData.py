@@ -77,6 +77,11 @@ def read_config(params_list, cfg_file):
         else:
             param['opOff'] = 0
 
+        if config.has_option(s, 'vectorIndex'):
+            param['vectorIndex'] = int(config.get(s, 'vectorIndex'))
+        else:
+            param['vectorIndex'] = float('NaN')
+
         # Add to configutation list
         cfg[s] = param
 
@@ -218,7 +223,17 @@ for cBlock in cfg:
         minvals, maxvals, avgvals = [], [], []
         for pname in pnames:
             # Get Data from data frame
-            x = np.array(data[pname], dtype=np.float)*np.float(params['scalar'])
+            if ~np.isnan(params['vectorIndex']):
+                if "SPKIRA" in config_file:
+                    x = []
+                    for xx in data[pname]:
+                        x.append(xx[params['vectorIndex']])
+                    x = np.array(x, dtype=np.float)
+                else:
+                    x = np.array(data[pname][params['vectorIndex']])
+                x = x*np.float(params['scalar'])
+            else:
+                x = np.array(data[pname], dtype=np.float)*np.float(params['scalar'])
             x[x <= -9.99e6] = float('NaN')
 
             # Store min/max/mean values
