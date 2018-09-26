@@ -226,7 +226,10 @@ for cBlock in cfg:
     # Get data
     raw_data = get_data(req_url, USERNAME, TOKEN)
 
+    # If device is oprationally off, print a green message
+    failFlag = False
     if params['opOff'] == 1:
+        failFlag = True
         print(params['title']+' operationally off. Skipping.')
         plt.plot()
         plt.text(0, 0, 'OPERATIONALLY OFFLINE',
@@ -234,13 +237,17 @@ for cBlock in cfg:
         plt.text(0, -0.02, 'No need for concern!',
                  ha='center', va='center', size=40, color='black')
 
+    # If no data returned, print a red error message
     elif not raw_data:
+        failFlag = True
         print('No data for '+params['title']+'. Skipping.')
         plt.plot()
         plt.text(0, 0, 'ERROR',
                  ha='center', va='center', size=60, color='red')
         plt.text(0, -0.02, 'No Data Returned from M2M Query',
                  ha='center', va='center', size=40, color='black')
+
+    # If device is functioning off, plot the datas as usual
     else:
         # Parse Data
         x, y, z = parse_data(raw_data, params)
@@ -275,8 +282,9 @@ for cBlock in cfg:
 
     # Add Title and Y label
     plt.ylabel(params['yParam'].replace('_', ' ') + ' ($' + params['yunits'] + '$)', fontsize=label_size)
-    plt.xlabel("Min=%2.2f, Max=%2.2f, Avg=%2.2f" % (minval, maxval, avgval))
     plt.title(params['title'], fontsize=label_size)
+    if not failFlag:
+        plt.xlabel("Min=%2.2f, Max=%2.2f, Avg=%2.2f" % (minval, maxval, avgval))
 
     # Save Figure
     parts = params['streamName'].split('/')
