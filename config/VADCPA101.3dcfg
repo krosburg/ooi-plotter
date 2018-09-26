@@ -1,0 +1,40 @@
+[VADCPA101_Eastward_Seawater_Velocity]
+streamName=RS01SBPS/PC01A/06-VADCPA101/streamed/vadcp_velocity_beam
+xParam=time
+yParam=bin_depths
+zParam=eastward_seawater_velocity
+dbKeyNames=VADCPA101_eastward_seawater_velocity
+pdNumsString=PD7,PD3819,PD7983
+yaxisInterval=1.0
+precision=-1
+yunits=m
+zunits=m s^{-1}
+
+
+[VADCPA101_Northward_Seawater_Velocity]
+streamName=RS01SBPS/PC01A/06-VADCPA101/streamed/vadcp_velocity_beam
+xParam=time
+yParam=bin_depths
+zParam=northward_seawater_velocity
+dbKeyNames=VADCPA101_northward_seawater_velocity
+pdNumsString=PD7,PD3820,PD7983
+yaxisInterval=1.0
+precision=-1
+yunits=m
+zunits=m s^{-1}
+opOff=0
+
+[VADCPA101_Upward_Seawater_Velocity_Est]
+streamName=RS01SBPS/PC01A/06-VADCPA101/streamed/vadcp_velocity_beam
+xParam=time
+yParam=bin_depths
+zParam=upward_seawater_velocity
+dbKeyNames=VADCPA101_upward_seawater_velocity
+pdNumsString=PD7,PD3827,PD7983
+yaxisInterval=1.0
+precision=-1
+yunits=m
+zunits=m s^{-1}
+opOff=0
+
+
