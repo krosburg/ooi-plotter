@@ -69,11 +69,14 @@ def read_config(params_list,cfg_file):
             param[param_name] = read_config_helper(config,param_name,s)
 
         # Parse optional parameters
-        if config.has_option(s,'scalar'): param['scalar'] = config.get(s,'scalar')
+        if config.has_option(s, 'scalar'): param['scalar'] = config.get(s,'scalar')
         else: param['scalar'] = 1
         
-        if config.has_option(s,'opOff'): param['opOff'] = int(config.get(s,'opOff'))
+        if config.has_option(s, 'opOff'): param['opOff'] = int(config.get(s,'opOff'))
         else: param['opOff'] = 0
+
+        if config.has_option(s, 'cmap'): param['cmap'] = config.get(s, 'cmap')
+        else: param['cmap'] = 'RdBu_r'
 
         # Add to configutation list
         cfg[s] = param
@@ -251,13 +254,14 @@ for cBlock in cfg:
     else:
         # Parse Data
         x, y, z = parse_data(raw_data, params)
+        cmap = params['cmap']
 
         # Plot
         # Contour and add colorbar
         minval = np.nanmin(z)
         maxval = np.nanmax(z)
         avgval = np.nanmean(z)
-        CS = plt.pcolor(x, y, z, cmap=plt.get_cmap('RdBu_r'),
+        CS = plt.pcolor(x, y, z, cmap=plt.get_cmap(cmap),
                         vmin=minval, vmax=maxval)
         CS.cmap.set_under('white')
 
