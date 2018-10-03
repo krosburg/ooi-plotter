@@ -163,11 +163,18 @@ def parse_data(raw_data, params):
 
     # If 2D y, select 1st 1D non-NaN 1D array
     try:
-        y.shape[1]
+        ywid = y.shape[1]
+        ylen = len(y)
         cnt = 0
         while np.isnan(y[cnt][0]):
-            cnt = cnt + 1
+            if cnt+1 >= ylen:
+                break
+            else:
+                cnt = cnt + 1
         y = y[cnt]
+        if np.isnan(y[0]):
+            if "OPTAA" in params['title']:
+                y = np.linspace(400.0, 730.0, ywid)
     except Exception:
         None
 
