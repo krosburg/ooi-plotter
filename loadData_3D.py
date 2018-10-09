@@ -260,7 +260,6 @@ for cBlock in cfg:
         minval = np.nanmin(z)
         maxval = np.nanmax(z)
         avgval = np.nanmean(z)
-        print('%f, %f, %s, %s' % (minval, maxval, type(minval), type(maxval)))
         CS = plt.pcolor(x, y, z, cmap=plt.get_cmap(cmap),
                         vmin=minval, vmax=maxval)
         CS.cmap.set_under('white')
