@@ -213,7 +213,7 @@ for cBlock in cfg:
         plt.text(0, -0.02, 'No Data Returned from M2M Query',
                  ha='center', va='center', size=40, color='black')
 
-    # If device is functioning off, plot the datas as usual
+    # If device is functioning, plot the datas as usual
     else:
 
         # Get the time variable
@@ -232,6 +232,11 @@ for cBlock in cfg:
                 else:
                     x = np.array(data[pname][params['vectorIndex']])
                 x = x*np.float(params['scalar'])
+            elif "PCO2WA105" in config_file:
+                x = []
+                for dat in raw_data:
+                    x.append(dat[pname])
+                x = np.array(x, dtype=np.float)*np.float(params['scalar'])
             else:
                 x = np.array(data[pname], dtype=np.float)*np.float(params['scalar'])
             x[x <= -9.99e6] = float('NaN')

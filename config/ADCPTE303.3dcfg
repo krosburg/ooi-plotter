@@ -1,0 +1,26 @@
+[ADCPTE303_Eastward_Seawater_Velocity]
+streamName=RS03AXBS/LJ03A/10-ADCPTE303/streamed/adcp_velocity_beam
+xParam=time
+yParam=bin_depths
+zParam=eastward_seawater_velocity
+dbKeyNames=ADCPTE303_eastward_seawater_velocity
+pdNumsString=PD7,PD3819,PD7983
+yaxisInterval=1.0
+precision=-1
+yunits=m
+zunits=m s^{-1}
+vectorIndex=1
+
+[ADCPTE303_Northward_Seawater_Velocity]
+streamName=RS03AXBS/LJ03A/10-ADCPTE303/streamed/adcp_velocity_beam
+xParam=time
+yParam=bin_depths
+zParam=northward_seawater_velocity
+dbKeyNames=ADCPTE303_northward_seawater_velocity
+pdNumsString=PD7,PD3820,PD7983
+yaxisInterval=1.0
+precision=-1
+yunits=m
+zunits=m s^{-1}
+vectorIndex=1
+opOff=0
