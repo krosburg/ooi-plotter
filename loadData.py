@@ -162,7 +162,12 @@ dt_start = dt_end - timedelta(days=offset)
 t_start = dt_start.isoformat() + 'Z'
 
 # Define Other Variables
-label_size = 20
+label_size = 23
+title_size = 30
+value_size = 22
+legtx_size = 24
+label_wt = "bold"
+title_wt = "bold"
 cfg_dir = '/home/sbaker/scripts/config/'
 params_list = ['streamName', 'paramNames',
                'dbKeyNames', 'pdNumsString',
@@ -266,16 +271,19 @@ for cBlock in cfg:
 
         # Format Xticks
         ax = plt.gca()
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M\n%m-%d'))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M\n%m/%d/%y'))
+        plt.tick_params(labelsize=value_size)
 
     # Add Title and Y label
-    plt.ylabel('($' + params['units'] + '$)', fontsize=label_size)
-    plt.title(params['title'], fontsize=label_size)
+    ylab_str = '($' + params['units'] + '$)'
+    titl_str = params['title'].replace('_', ' ')
+    plt.ylabel(ylab_str, fontsize=label_size, fontweight=label_wt)
+    plt.title(titl_str, fontsize=title_size, fontweight=title_wt)
 
     # Add Legend
-    box_y = -.45*(1 + ((len(pnames)-2)*.225))
+    box_y = -.50*(1 + ((len(pnames)-1)*.225))
     lgd = plt.legend(loc='lower right', bbox_to_anchor=(1.005, box_y),
-                     fontsize=20, frameon=False)
+                     fontsize=legtx_size, frameon=False)
 
     # Save Figure
     parts = params['streamName'].split('/')

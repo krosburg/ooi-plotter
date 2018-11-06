@@ -202,7 +202,12 @@ dt_start = dt_end - timedelta(days=offset)
 t_start = dt_start.isoformat() + 'Z'
 
 # Define Other Variables
-label_size = 20
+label_size = 23
+title_size = 30
+value_size = 22
+cbval_size = 18
+label_wt = "bold"
+title_wt = "bold"
 cfg_dir = '/home/sbaker/scripts/config/'
 params_list = ['dbKeyNames', 'xParam', 'yParam',
                'zParam', 'streamName', 'pdNumsString',
@@ -255,8 +260,7 @@ for cBlock in cfg:
         x, y, z = parse_data(raw_data, params)
         cmap = params['cmap']
 
-        # Plot
-        # Contour and add colorbar
+        # Contour the Data & Calc Min/Max/Mean
         minval = np.nanmin(z)
         maxval = np.nanmax(z)
         avgval = np.nanmean(z)
@@ -266,7 +270,8 @@ for cBlock in cfg:
 
         # Colorbar
         cb = plt.colorbar()
-        cb.set_label(r'($%s$)' % params['zunits'])
+        cb.set_label(r'($%s$)' % params['zunits'], fontsize=cbval_size, fontweight="bold")
+        cb.ax.tick_params(labelsize=cbval_size)
 
         # Add Grid
         plt.grid(True, linestyle='dashed', linewidth=2)
@@ -281,13 +286,21 @@ for cBlock in cfg:
 
         # Format Xticks
         ax = plt.gca()
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M\n%m-%d'))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M\n%m/%d/%y'))
+        plt.tick_params(labelsize=value_size)
 
     # Add Title and Y label
-    plt.ylabel(params['yParam'].replace('_', ' ') + ' ($' + params['yunits'] + '$)', fontsize=label_size)
-    plt.title(params['title'], fontsize=label_size)
+    ylab_str = params['yParam'].replace('_', ' ') + ' ($' + params['yunits'] + '$)'
+    titl_str = params['title'].replace('_', ' ')
+    plt.ylabel(ylab_str, fontsize=label_size, fontweight=label_wt)
+    plt.title(titl_str, fontsize=title_size, fontweight=title_wt)
     if not failFlag:
-        plt.xlabel("Min=%2.2f, Max=%2.2f, Avg=%2.2f" % (minval, maxval, avgval))
+        xlab_str = " Min=%2.2f, Max=%2.2f, Avg=%2.2f" % (minval, maxval, avgval)
+        px = plt.xlim()
+        py = plt.ylim()
+        plt.text(px[0], py[1], xlab_str, fontsize=label_size, fontweight=label_wt,
+                 verticalalignment='top')
+        plt.xlabel(xlab_str, fontsize=label_size, fontweight=label_wt)
 
     # Save Figure
     parts = params['streamName'].split('/')
