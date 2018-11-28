@@ -89,6 +89,40 @@ def read_config(params_list, cfg_file):
 ###############################################################################
 
 
+##### UPDATE_STATUS() #########################################################
+def updateStatus(t, end_want, stream):
+    ref_desg = stream.split('/streamed')[0].replace('/', '-')
+    t_now = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
+    if not t:
+        end_time = "---"
+        t_diff = float('NaN')
+        status = -1
+    else:
+        end_time = np.nanmax(t)
+        t_diff = end_want - end_time
+        t_diff = t_diff.days*86400 + t_diff.seconds + t_diff.microseconds*1E-6
+        # If diff less than 12 hr --> Green
+        if t_diff <= 86400/2.0:
+            status = 0
+        # If diff less than 24 hr --> Yellow
+        elif t_diff <= 86400.0:
+            status = 1
+        # If Diff greater than 24 hr --> Red :(
+        else:
+            status = 2
+
+        # Process End Time for Errors
+        if t_diff >= 10*365*86400:
+            end_time = "---"
+        else:
+            end_time = end_time.strftime('%Y-%m-%d %H:%M:%S UTC')
+    f = open(status_file, 'a+')
+    f.write("%s,%s,%s,%2.4f,%i\n" % (ref_desg, t_now, end_time, t_diff, status))
+    f.close()
+    
+###############################################################################
+
+
 ##### GET_OFFSET() ############################################################
 def get_offset(time_window):
     # Case statement that returns the time offset given a time_window string.
@@ -169,6 +203,7 @@ legtx_size = 24
 label_wt = "bold"
 title_wt = "bold"
 cfg_dir = '/home/sbaker/scripts/config/'
+status_file = '/var/www/html/status/inst_status_m2m.csv'
 params_list = ['streamName', 'paramNames',
                'dbKeyNames', 'pdNumsString',
                'units']
@@ -177,6 +212,7 @@ params_list = ['streamName', 'paramNames',
 cfg = read_config(params_list, config_file)
 
 # Loop on all elements in configuration file
+status_flag = True
 for cBlock in cfg:
     params = cfg.get(cBlock)
 
@@ -201,6 +237,9 @@ for cBlock in cfg:
     failFlag = False
     if params['opOff'] == 1:
         failFlag = True
+        if status_flag:
+            updateStatus([], dt_end, params['streamName'])
+            status_flag = False
         print(params['title']+' operationally off. Skipping.')
         plt.plot()
         plt.text(0, 0, 'OPERATIONALLY OFFLINE',
@@ -211,6 +250,9 @@ for cBlock in cfg:
     # If no data returned, print a red error message
     elif not raw_data:
         failFlag = True
+        if status_flag:
+            updateStatus(datetime(1,1,1), dt_end, params['streamName'])
+            status_flag = False
         print('No data for '+params['title']+'. Skipping.')
         plt.plot()
         plt.text(0, 0, 'ERROR',
@@ -223,6 +265,11 @@ for cBlock in cfg:
 
         # Get the time variable
         t = epoch_to_dt(np.array(data['time'], dtype=np.float))
+
+        # Write to Status File
+        if "day" in time_window and status_flag:
+            updateStatus(t, dt_end, params['streamName'])
+            status_flag = False
 
         # Extract non-time variables
         minvals, maxvals, avgvals = [], [], []
