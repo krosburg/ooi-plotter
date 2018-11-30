@@ -237,7 +237,7 @@ for cBlock in cfg:
     failFlag = False
     if params['opOff'] == 1:
         failFlag = True
-        if status_flag:
+        if "day" in time_window and status_flag:
             updateStatus([], dt_end, params['streamName'])
             status_flag = False
         print(params['title']+' operationally off. Skipping.')
@@ -250,7 +250,7 @@ for cBlock in cfg:
     # If no data returned, print a red error message
     elif not raw_data:
         failFlag = True
-        if status_flag:
+        if "day" in time_window and status_flag:
             updateStatus(datetime(1,1,1), dt_end, params['streamName'])
             status_flag = False
         print('No data for '+params['title']+'. Skipping.')
