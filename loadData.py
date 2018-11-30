@@ -321,9 +321,21 @@ for cBlock in cfg:
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M\n%m/%d/%y'))
         plt.tick_params(labelsize=value_size)
 
+    # Breakout components from stream
+    parts = params['streamName'].split('/')
+    region = parts[0]
+    node = parts[1]
+    inst = parts[2][3:]
+    iprt = parts[2][0:2]
+    rID = region + '-' + node + '-'
+
     # Add Title and Y label
     ylab_str = '($' + params['units'] + '$)'
     titl_str = params['title'].replace('_', ' ')
+    titlpart = titl_str.split(' ')
+    titl_str = titlpart[0] + ' (IP' + iprt + ')'
+    for tpart in titlpart[1:]:
+        titl_str = titl_str + ' ' + tpart
     plt.ylabel(ylab_str, fontsize=label_size, fontweight=label_wt)
     plt.title(titl_str, fontsize=title_size, fontweight=title_wt)
 
@@ -333,11 +345,6 @@ for cBlock in cfg:
                      fontsize=legtx_size, frameon=False)
 
     # Save Figure
-    parts = params['streamName'].split('/')
-    region = parts[0]
-    node = parts[1]
-    inst = parts[2][3:]
-    rID = region + '-' + node + '-'
     fig_file = dest_dir + time_window + '/' + rID + params['title']
     #fig_file = dest_dir + time_window + '/' + params['title']
     if not failFlag:
