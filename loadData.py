@@ -116,7 +116,7 @@ def updateStatus(t, end_want, stream):
             end_time = "---"
         else:
             end_time = end_time.strftime('%Y-%m-%d %H:%M:%S UTC')
-    f = open(status_file, 'a+')
+    f = open(status_file + '.tmp', 'a+')
     f.write("%s,%s,%s,%2.4f,%i\n" % (ref_desg, t_now, end_time, t_diff, status))
     f.close()
     
