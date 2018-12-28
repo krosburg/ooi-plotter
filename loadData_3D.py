@@ -231,7 +231,10 @@ for cBlock in cfg:
     fig = plt.figure(figsize=(18,4.475))
 
     # Get data
-    raw_data = get_data(req_url, USERNAME, TOKEN)
+    if params['opOff'] == 0:
+        raw_data = get_data(req_url, USERNAME, TOKEN)
+    else:
+        raw_data = []
 
     # If device is oprationally off, print a green message
     failFlag = False
