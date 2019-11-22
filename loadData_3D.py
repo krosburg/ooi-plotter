@@ -153,6 +153,13 @@ def parse_data(raw_data, params):
     y = np.array(y, dtype=np.float)
     z = np.array(z, dtype=np.float).transpose() * np.float(params['scalar'])
 
+    # Fix Transpose for adcp
+    #if z.shape[0] != y.shape[0]:
+    #    y = y[:-1,:-1]
+    #if z.shape[0] != x.shape[0]:
+    #    x = x[:-1]
+    #y = y.transpose()
+
     # Convert Time if Needed
     if params['xParam'] == 'time':
         x = epoch_to_dt(x)
