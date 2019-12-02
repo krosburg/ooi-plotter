@@ -10,6 +10,7 @@ precision=-1
 yunits=m
 zunits=m s^{-1}
 vectorIndex=1
+opOff=1
 
 [ADCPTE101_Northward_Seawater_Velocity]
 streamName=RS01SLBS/LJ01A/10-ADCPTE101/streamed/adcp_velocity_beam
@@ -23,4 +24,4 @@ precision=-1
 yunits=m
 zunits=m s^{-1}
 vectorIndex=1
-opOff=0
+opOff=1

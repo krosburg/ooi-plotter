@@ -203,7 +203,7 @@ legtx_size = 24
 label_wt = "bold"
 title_wt = "bold"
 cfg_dir = '/home/sbaker/scripts/config/'
-status_file = '/var/www/html/status/inst_status_m2m.csv'
+#status_file = '/var/www/html/status/inst_status_m2m.csv'
 params_list = ['streamName', 'paramNames',
                'dbKeyNames', 'pdNumsString',
                'units']
@@ -241,7 +241,7 @@ for cBlock in cfg:
     if params['opOff'] == 1:
         failFlag = True
         if "day" in time_window and status_flag:
-            updateStatus([], dt_end, params['streamName'])
+            #updateStatus([], dt_end, params['streamName'])
             status_flag = False
         print(params['title']+' operationally off. Skipping.')
         plt.plot()
@@ -254,7 +254,7 @@ for cBlock in cfg:
     elif not raw_data:
         failFlag = True
         if "day" in time_window and status_flag:
-            updateStatus(datetime(1,1,1), dt_end, params['streamName'])
+            #updateStatus(datetime(1,1,1), dt_end, params['streamName'])
             status_flag = False
         print('No data for '+params['title']+'. Skipping.')
         plt.plot()
@@ -271,7 +271,7 @@ for cBlock in cfg:
 
         # Write to Status File
         if "day" in time_window and status_flag:
-            updateStatus(t, dt_end, params['streamName'])
+            #updateStatus(t, dt_end, params['streamName'])
             status_flag = False
 
         # Extract non-time variables
