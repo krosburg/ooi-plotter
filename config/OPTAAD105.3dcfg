@@ -9,6 +9,7 @@ yaxisInterval=1.0
 precision=-1
 yunits=nm
 zunits=counts
+opOff=1
 
 [OPTAAD105_Optical_Attenuation]
 streamName=CE04OSPS/SF01B/3B-OPTAAD105/streamed/optaa_sample
@@ -21,4 +22,5 @@ yaxisInterval=1.0
 precision=-1
 yunits=nm
 zunits=counts
+opOff=1
 
