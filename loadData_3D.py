@@ -107,7 +107,7 @@ def get_data(req_url, username, token):
     SUCCESS_CODE = 200
     try:
         raw_data = requests.get(req_url, auth=(username, token),
-                                timeout=10,
+                                timeout=30,
                                 verify=False)
         if raw_data.status_code != SUCCESS_CODE:
             print('Error: status code ', raw_data.status_code)
