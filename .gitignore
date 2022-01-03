@@ -3,6 +3,8 @@
 
 
 ### PROJECT SPECIFIC ###
+opSwap.sh
+config/orig/*
 ooicreds.py
 ooicreds.pyc
 *.jpg
