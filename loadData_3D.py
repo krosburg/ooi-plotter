@@ -182,6 +182,11 @@ def parse_data(raw_data, params):
     z[z > 9999998.0] = float('NaN')
     z[z < -9999998.0] = float('NaN')
     z[z == -9999999.0] = float('NaN')
+    
+    if params['yParam'] == 'bin_depths':
+        z[y < 5] = float('nan')
+        z[z >= 2.0] = float('NaN')
+        z[z <= -2.0] = float('NaN')
 
     return x, y, z
 ###############################################################################
@@ -274,8 +279,9 @@ for cBlock in cfg:
         minval = np.nanmin(z)
         maxval = np.nanmax(z)
         avgval = np.nanmean(z)
+        stdval = np.nanstd(z)
         CS = plt.pcolor(x, y, z, cmap=plt.get_cmap(cmap),
-                        vmin=minval, vmax=maxval)
+                        vmin=(avgval-2*stdval), vmax=(avgval+2*stdval))
         CS.cmap.set_under('white')
 
         # Colorbar
