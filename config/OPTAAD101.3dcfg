@@ -10,7 +10,7 @@ precision=-1
 yunits=nm
 zunits=counts
 vectorIndex=1
-opOff=1
+opOff=0
 
 [OPTAAD101_Optical_Attenuation]
 streamName=RS01SBPS/SF01A/3B-OPTAAD101/streamed/optaa_sample
@@ -24,4 +24,4 @@ precision=-1
 yunits=nm
 zunits=counts
 vectorIndex=1
-opOff=1
+opOff=0
